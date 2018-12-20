@@ -60,8 +60,8 @@
         <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-java8-compat -->
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-java8-compat_2.12</artifactId>
-            <version>0.8.0</version>
+            <artifactId>scala-java8-compat_2.11</artifactId>
+            <version>0.5.0</version>
         </dependency>
 
     </dependencies>
