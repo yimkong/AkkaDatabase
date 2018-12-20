@@ -24,4 +24,5 @@ public class AkkademoTest {
         AkkademoDb akkademoDb = actorRef.underlyingActor();
         assertEquals(akkademoDb.map.get("key"), "value");
     }
+
 }
