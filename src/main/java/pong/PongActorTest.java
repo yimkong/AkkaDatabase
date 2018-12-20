@@ -16,7 +16,7 @@ import static scala.compat.java8.FutureConverters.toJava;
 
 /**
  * author yg
- * description
+ * description 异步测试
  * date 2018/12/19
  */
 public class PongActorTest {
@@ -25,8 +25,8 @@ public class PongActorTest {
 
     @Test
     public void shouldReplyToPingWithPong() throws Exception {
-        Future sFuture = ask(actorRef, "Ping", 1000);
-        final CompletionStage<String> cs = toJava(sFuture);
+        Future sFuture = ask(actorRef, "Ping", 1000);//scala的future
+        final CompletionStage<String> cs = toJava(sFuture); //转换成java的future
         final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
         assert (jFuture.get(1000, TimeUnit.MILLISECONDS)).equals("Pong");
     }
