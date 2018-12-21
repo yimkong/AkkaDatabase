@@ -25,10 +25,15 @@ public class PongActorTest {
 
     @Test
     public void shouldReplyToPingWithPong() throws Exception {
-        Future sFuture = ask(actorRef, "Ping", 1000);//scala的future
-        final CompletionStage<String> cs = toJava(sFuture); //转换成java的future
+        final CompletionStage<String> cs = askPong("Ping"); //转换成java的future
         final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
         assert (jFuture.get(1000, TimeUnit.MILLISECONDS)).equals("Pong");
+    }
+
+    private CompletionStage<String> askPong(String message) {
+        Future sFuture = ask(actorRef, message, 1000);//scala的future
+        final CompletionStage<String> cs = toJava(sFuture); //转换成java的future
+        return cs;
     }
 
     @Test(expected = ExecutionException.class)
@@ -37,5 +42,13 @@ public class PongActorTest {
         final CompletionStage<String> cs = toJava(sFuture);
         final CompletableFuture<String> jFuture = (CompletableFuture<String>) cs;
         jFuture.get(1000, TimeUnit.MILLISECONDS);
+    }
+
+    @Test
+    public void printToConsole() throws Exception {
+        askPong("Ping").thenAccept(x -> System.out.println("replied with: " + x));
+        askPong("Ping").thenApply(x -> x.charAt(1)).thenAccept(x -> System.out.println("replied with: " + x.getClass()));//thenApply进行类型转换
+        CompletionStage<String> stringCompletionStage = askPong("Ping").thenCompose(x -> askPong("Ping"));//链式异步(不会多层future嵌套)
+        Thread.sleep(1000);
     }
 }
