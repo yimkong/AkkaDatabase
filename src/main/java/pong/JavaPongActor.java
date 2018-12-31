@@ -13,6 +13,7 @@ import scala.runtime.BoxedUnit;
  * date 2018/12/19
  */
 public class JavaPongActor extends AbstractActor {
+
     @Override
     public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder.matchEquals("Ping", s -> sender().tell("Pong", ActorRef.noSender())).

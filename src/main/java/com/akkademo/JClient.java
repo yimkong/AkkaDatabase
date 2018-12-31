@@ -2,6 +2,7 @@ package com.akkademo;
 
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
+import com.akkademo.messages.GetRequest;
 import com.akkademo.messages.SetRequest;
 
 import java.util.concurrent.CompletionStage;
@@ -24,5 +25,9 @@ public class JClient {
 
     public CompletionStage set(String key, int value) {
         return toJava(ask(remoteDb, new SetRequest(key, value), 2000));
+    }
+
+    public CompletionStage<Object> get(String key) {
+        return toJava(ask(remoteDb, new GetRequest(key), 2000));
     }
 }
