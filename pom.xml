@@ -11,11 +11,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
+        <scala>2.11</scala>
+
         <scala.version>2.11.8</scala.version>
-        <akka.version>2.3.9</akka.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
-        <akka.remote>2.3.14</akka.remote>
-        <akka.compat>0.5.0</akka.compat>
+        <akka.version>2.4.14</akka.version>
+        <akka.remote>2.3.6</akka.remote>
+        <akka.compat>0.7.0</akka.compat>
         <akka.test>2.5.9</akka.test>
     </properties>
 
@@ -29,32 +30,27 @@
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-testkit_2.11</artifactId>
+            <artifactId>akka-testkit_${scala}</artifactId>
             <version>${akka.test}</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-remote_2.11</artifactId>
+            <artifactId>akka-remote_${scala}</artifactId>
             <version>${akka.remote}</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-java8-compat_2.11</artifactId>
+            <artifactId>scala-java8-compat_${scala}</artifactId>
             <version>${akka.compat}</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.11</artifactId>
+            <artifactId>akka-actor_${scala}</artifactId>
             <version>${akka.version}</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-persistence-experimental_2.11</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-slf4j_2.11</artifactId>
+            <artifactId>akka-slf4j_${scala}</artifactId>
             <version>${akka.version}</version>
         </dependency>
         <dependency>
@@ -67,11 +63,7 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+
     </dependencies>
     <repositories>
         <repository>
