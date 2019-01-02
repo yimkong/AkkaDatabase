@@ -15,7 +15,6 @@
 
         <scala.version>2.11.8</scala.version>
         <akka.version>2.4.14</akka.version>
-        <akka.remote>2.3.6</akka.remote>
         <akka.compat>0.7.0</akka.compat>
         <akka.test>2.5.9</akka.test>
     </properties>
@@ -36,7 +35,7 @@
         <dependency>
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-remote_${scala}</artifactId>
-            <version>${akka.remote}</version>
+            <version>${akka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
