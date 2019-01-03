@@ -1,5 +1,3 @@
-package com.akkademo.Test;
-
 import com.akkademo.JClient;
 import org.junit.jupiter.api.Test;
 
