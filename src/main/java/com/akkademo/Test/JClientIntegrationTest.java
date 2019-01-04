@@ -20,4 +20,5 @@ public class JClientIntegrationTest {
         Integer result = (Integer) ((CompletableFuture) jClient.get("123")).get();
         assert (result == 123);
     }
+
 }
