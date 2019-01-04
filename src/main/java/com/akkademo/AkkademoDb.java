@@ -18,8 +18,8 @@ import java.util.Map;
  * date 2018/12/2
  */
 public class AkkademoDb extends AbstractActor {
-    protected final LoggingAdapter log = Logging.getLogger(context().system(), this);
-    protected final Map<String, Object> map = new HashMap<>();
+    public final LoggingAdapter log = Logging.getLogger(context().system(), this);
+    public final Map<String, Object> map = new HashMap<>();
 
     private AkkademoDb() {
         receive(ReceiveBuilder

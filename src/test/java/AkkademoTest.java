@@ -1,9 +1,8 @@
-package com.akkademo;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.TestActorRef;
+import com.akkademo.AkkademoDb;
 import com.akkademo.messages.SetRequest;
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,8 @@
-package pong;
-
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import org.junit.Test;
+import pong.JavaPongActor;
 import scala.concurrent.Future;
 
 import java.util.concurrent.CompletableFuture;
