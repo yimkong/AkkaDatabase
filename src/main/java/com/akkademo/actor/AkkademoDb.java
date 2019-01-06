@@ -1,4 +1,4 @@
-package com.akkademo;
+package com.akkademo.actor;
 
 import akka.actor.AbstractActor;
 import akka.actor.Status;

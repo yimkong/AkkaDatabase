@@ -2,6 +2,7 @@ package com.akkademo;
 
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import com.akkademo.actor.AkkademoDb;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
