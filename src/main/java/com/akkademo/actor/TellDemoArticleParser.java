@@ -46,21 +46,23 @@ public class TellDemoArticleParser extends AbstractActor {
     private ActorRef buildExtraActor(ActorRef senderRef, String url) {
         class MyActor extends AbstractActor {
             public MyActor() {
-                receive(
-                        ReceiveBuilder.matchEquals(
-                                String.class, x -> x.equals("timeout"), x -> {
-                                    senderRef.tell(new Status.Failure(new TimeoutException("timeout!")), self());
-                                    context().stop(self());
-                                }
-                        ).match(HttpResponse.class, httpResponse -> articleParseActor.tell(new ParseHtmlArticle(url, httpResponse.body), self())
-                        ).match(String.class, body -> {
+                receive(ReceiveBuilder
+                        .matchEquals(String.class, x -> x.equals("timeout"), x -> {
+                            senderRef.tell(new Status.Failure(new TimeoutException("timeout!")), self());
+                            context().stop(self());
+                        })
+                        .match(HttpResponse.class, httpResponse -> articleParseActor.tell(new ParseHtmlArticle(url, httpResponse.body), self()))
+                        .match(String.class, body -> {
                             senderRef.tell(body, self());
                             context().stop(self());
-                        }).match(ArticleBody.class, articleBody -> {
+                        })
+                        .match(ArticleBody.class, articleBody -> {
                             cacheActor.tell(new SetRequest(articleBody.body, self()), self());
+                            senderRef.tell(articleBody.body, self());
                             context().stop(self());
-                        }).matchAny(t -> System.err.println("ignoring msg: " + t.getClass())
-                        ).build()
+                        })
+                        .matchAny(t -> System.err.println("ignoring msg: " + t.getClass()))
+                        .build()
                 );
             }
         }
