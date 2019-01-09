@@ -4,9 +4,9 @@ import akka.actor.ActorRef;
 import akka.actor.Status;
 import akka.testkit.TestProbe;
 import akka.util.Timeout;
-import com.akkademo.messages.GetRequest;
-import com.akkademo.service.HttpResponse;
-import com.akkademo.service.ParseArticle;
+import com.akkademo.commonMessages.GetRequest;
+import com.akkademo.articleMessages.HttpResponse;
+import com.akkademo.articleMessages.ParseArticle;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 
@@ -21,6 +21,7 @@ public class Common {
 
     public static void test(ActorRef askDemoActor, TestProbe cacheProbe,TestProbe httpClientProbe, Timeout timeout) throws Exception {
         Future f = ask(askDemoActor, new ParseArticle(("http://www.baidu.com")), timeout);
+
         cacheProbe.expectMsgClass(GetRequest.class);
         cacheProbe.reply(new Status.Failure(new Exception("no cache")));
 

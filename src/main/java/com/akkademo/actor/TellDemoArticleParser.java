@@ -3,12 +3,12 @@ package com.akkademo.actor;
 import akka.actor.*;
 import akka.japi.pf.ReceiveBuilder;
 import akka.util.Timeout;
-import com.akkademo.messages.GetRequest;
-import com.akkademo.messages.SetRequest;
-import com.akkademo.service.ArticleBody;
-import com.akkademo.service.HttpResponse;
-import com.akkademo.service.ParseArticle;
-import com.akkademo.service.ParseHtmlArticle;
+import com.akkademo.commonMessages.GetRequest;
+import com.akkademo.commonMessages.SetRequest;
+import com.akkademo.articleMessages.ArticleBody;
+import com.akkademo.articleMessages.HttpResponse;
+import com.akkademo.articleMessages.ParseArticle;
+import com.akkademo.articleMessages.ParseHtmlArticle;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 

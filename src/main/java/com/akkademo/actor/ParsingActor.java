@@ -3,8 +3,8 @@ package com.akkademo.actor;
 
 import akka.actor.AbstractActor;
 import akka.japi.pf.ReceiveBuilder;
-import com.akkademo.service.ArticleBody;
-import com.akkademo.service.ParseHtmlArticle;
+import com.akkademo.articleMessages.ArticleBody;
+import com.akkademo.articleMessages.ParseHtmlArticle;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
 import scala.PartialFunction;
 
@@ -13,6 +13,7 @@ public class ParsingActor extends AbstractActor {
         return ReceiveBuilder.
                 match(ParseHtmlArticle.class, msg -> {
                     String body = ArticleExtractor.INSTANCE.getText(msg.htmlString);
+                    System.err.println("解析html得到:" + body);
                     sender().tell(new ArticleBody(msg.uri, body), self());
                 }).build();
     }

@@ -5,9 +5,9 @@ import akka.actor.Status;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import akka.japi.pf.ReceiveBuilder;
-import com.akkademo.messages.GetRequest;
-import com.akkademo.messages.KeyNotFoundException;
-import com.akkademo.messages.SetRequest;
+import com.akkademo.commonMessages.GetRequest;
+import com.akkademo.commonMessages.KeyNotFoundException;
+import com.akkademo.commonMessages.SetRequest;
 
 import java.util.HashMap;
 import java.util.Map;

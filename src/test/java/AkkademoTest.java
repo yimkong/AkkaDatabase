@@ -3,7 +3,7 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.TestActorRef;
 import com.akkademo.actor.AkkademoDb;
-import com.akkademo.messages.SetRequest;
+import com.akkademo.commonMessages.SetRequest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

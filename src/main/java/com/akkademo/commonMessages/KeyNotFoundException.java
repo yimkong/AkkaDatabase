@@ -1,4 +1,4 @@
-package com.akkademo.messages;
+package com.akkademo.commonMessages;
 
 import scala.Serializable;
 

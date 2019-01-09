@@ -1,4 +1,4 @@
-package com.akkademo.service;
+package com.akkademo.articleMessages;
 
 /**
  * author yg

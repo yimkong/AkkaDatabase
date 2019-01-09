@@ -2,8 +2,8 @@ package com.akkademo;
 
 import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
-import com.akkademo.messages.GetRequest;
-import com.akkademo.messages.SetRequest;
+import com.akkademo.commonMessages.GetRequest;
+import com.akkademo.commonMessages.SetRequest;
 
 import java.util.concurrent.CompletionStage;
 

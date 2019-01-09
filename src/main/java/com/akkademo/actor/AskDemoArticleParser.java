@@ -3,13 +3,14 @@ package com.akkademo.actor;
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
+import akka.actor.Status;
 import akka.japi.pf.ReceiveBuilder;
 import akka.util.Timeout;
-import com.akkademo.messages.GetRequest;
-import com.akkademo.service.ArticleBody;
-import com.akkademo.service.HttpResponse;
-import com.akkademo.service.ParseArticle;
-import com.akkademo.service.ParseHtmlArticle;
+import com.akkademo.commonMessages.GetRequest;
+import com.akkademo.articleMessages.ArticleBody;
+import com.akkademo.articleMessages.HttpResponse;
+import com.akkademo.articleMessages.ParseArticle;
+import com.akkademo.articleMessages.ParseHtmlArticle;
 import scala.PartialFunction;
 import scala.runtime.BoxedUnit;
 
@@ -21,7 +22,7 @@ import static scala.compat.java8.FutureConverters.toJava;
 
 /**
  * author yg
- * description
+ * description 解析请求文章的actor
  * date 2019/1/6
  */
 public class AskDemoArticleParser extends AbstractActor {
@@ -41,9 +42,10 @@ public class AskDemoArticleParser extends AbstractActor {
     @Override
     public PartialFunction<Object, BoxedUnit> receive() {
         return ReceiveBuilder.match(ParseArticle.class, msg -> {
-            final CompletionStage cacheResult = toJava(ask(cacheActor, new GetRequest(msg.url), timeout));
+            final CompletionStage cacheResult = toJava(ask(cacheActor, new GetRequest(msg.url), timeout));//请求缓存
             final CompletionStage result = cacheResult.handle((x, t) -> {
-                return (x != null) ? CompletableFuture.completedFuture(x) : toJava(ask(httpClienActor, msg.url, timeout)).thenCompose(rawArticle -> toJava(ask(articleParseActor, new ParseHtmlArticle(msg.url, ((HttpResponse) rawArticle).body), timeout)));
+                return (x != null) ? CompletableFuture.completedFuture(x) : toJava(ask(httpClienActor, msg.url, timeout))//缓存里有的话就返回，没有的话请求httpClienActor得到html，然后请求articleParseActor解析html
+                        .thenCompose(rawArticle -> toJava(ask(articleParseActor, new ParseHtmlArticle(msg.url, ((HttpResponse) rawArticle).body), timeout)));
             }).thenCompose(x -> x);
             final ActorRef senderRef = sender();
             result.handle((x, t) -> {
@@ -55,7 +57,7 @@ public class AskDemoArticleParser extends AbstractActor {
                     } else if (x instanceof String) //cached article
                         senderRef.tell(x, self());
                 } else {
-                    senderRef.tell(new akka.actor.Status.Failure((Throwable) t), self());
+                    senderRef.tell(new Status.Failure((Throwable) t), self());
                 }
                 return null;
             });

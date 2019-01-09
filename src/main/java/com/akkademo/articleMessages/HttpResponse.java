@@ -1,4 +1,4 @@
-package com.akkademo.service;
+package com.akkademo.articleMessages;
 
 public class HttpResponse {
     public final String body;
