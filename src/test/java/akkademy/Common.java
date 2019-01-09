@@ -20,7 +20,7 @@ import static akka.pattern.Patterns.ask;
 public class Common {
 
     public static void test(ActorRef askDemoActor, TestProbe cacheProbe,TestProbe httpClientProbe, Timeout timeout) throws Exception {
-        Future f = ask(askDemoActor, new ParseArticle(("http://www.google.com")), timeout);
+        Future f = ask(askDemoActor, new ParseArticle(("http://www.baidu.com")), timeout);
         cacheProbe.expectMsgClass(GetRequest.class);
         cacheProbe.reply(new Status.Failure(new Exception("no cache")));
 
