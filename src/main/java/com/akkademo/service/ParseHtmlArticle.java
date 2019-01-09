@@ -6,6 +6,11 @@ package com.akkademo.service;
  * date 2019/1/6
  */
 public class ParseHtmlArticle {
-    public ParseHtmlArticle(String url, Object p1) {
+    public final String uri, htmlString;
+
+    public ParseHtmlArticle(String uri, String htmlString) {
+        this.uri = uri;
+        this.htmlString = htmlString;
     }
+
 }

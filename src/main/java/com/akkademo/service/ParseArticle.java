@@ -6,5 +6,9 @@ package com.akkademo.service;
  * date 2019/1/6
  */
 public class ParseArticle {
-    public String url;
+    public final String url;
+    public ParseArticle(String url) {
+        this.url = url;
+    }
+
 }
