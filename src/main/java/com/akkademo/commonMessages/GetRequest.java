@@ -7,7 +7,7 @@ import scala.Serializable;
  * description
  * date 2018/12/29
  */
-public class GetRequest implements Serializable {
+public class GetRequest implements Serializable, Request {
     public final String key;
 
     public GetRequest(String key) {

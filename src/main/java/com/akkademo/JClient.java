@@ -4,6 +4,7 @@ import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import com.akkademo.commonMessages.GetRequest;
 import com.akkademo.commonMessages.SetRequest;
+import com.akkademo.commonMessages.Ping;
 import com.typesafe.config.ConfigFactory;
 
 import java.util.concurrent.CompletionStage;
@@ -28,7 +29,12 @@ public class JClient {
         return toJava(ask(remoteDb, new SetRequest(key, value), 2000));
     }
 
+    public CompletionStage ping() {
+        return toJava(ask(remoteDb, new Ping(), 2000));
+    }
+
     public CompletionStage<Object> get(String key) {
         return toJava(ask(remoteDb, new GetRequest(key), 2000));
     }
+
 }

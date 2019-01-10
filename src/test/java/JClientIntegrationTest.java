@@ -1,4 +1,5 @@
 import com.akkademo.JClient;
+import com.akkademo.commonMessages.Connected;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +18,12 @@ public class JClientIntegrationTest {
         jClient.set("123", 123);
         Integer result = (Integer) ((CompletableFuture) jClient.get("123")).get();
         assert (result == 123);
+    }
+
+    @Test
+    public void itShouldReturnConnected() throws ExecutionException, InterruptedException {
+        CompletableFuture result = (CompletableFuture) jClient.ping();
+        assert (result.get().getClass().equals(Connected.class));
     }
 
 }
