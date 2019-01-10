@@ -4,6 +4,7 @@ import akka.actor.ActorSelection;
 import akka.actor.ActorSystem;
 import com.akkademo.commonMessages.GetRequest;
 import com.akkademo.commonMessages.SetRequest;
+import com.typesafe.config.ConfigFactory;
 
 import java.util.concurrent.CompletionStage;
 
@@ -16,7 +17,7 @@ import static scala.compat.java8.FutureConverters.toJava;
  * date 2018/12/29
  */
 public class JClient {
-    private final ActorSystem system = ActorSystem.create("LocalSystem");
+    private final ActorSystem system = ActorSystem.create("LocalSystem", ConfigFactory.load("applicationTest"));
     private final ActorSelection remoteDb;
 
     public JClient(String remoteAddr) {
