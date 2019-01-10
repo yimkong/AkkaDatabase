@@ -4,9 +4,9 @@ import akka.actor.ActorRef;
 import akka.actor.Status;
 import akka.testkit.TestProbe;
 import akka.util.Timeout;
-import com.akkademo.commonMessages.GetRequest;
 import com.akkademo.articleMessages.HttpResponse;
 import com.akkademo.articleMessages.ParseArticle;
+import com.akkademo.commonMessages.GetRequest;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 
@@ -56,4 +56,5 @@ public class Common {
         assert (result.contains("I’ve been writing a lot in emacs lately"));
         assert (!result.contains("<body>"));
     }
+
 }

@@ -70,46 +70,53 @@ public class TellDemoArticleParser extends AbstractActor {
     }
 
     //按书上要求只有在缓存请求无法返回结果的时候才请求原始文章并解析 TODO 待修改
-    /*private ActorRef buildExtraActorOnlyNoCache(ActorRef senderRef, String url) {
+    private ActorRef buildExtraActorOnlyNoCache(ActorRef senderRef, String url) {
         class MyActor extends AbstractActor {
             //是否有缓存
             private boolean ifHasCache = false;
-            //是否返回
-            private boolean ifReturn = false;
 
             MyActor() {
-                receive(ReceiveBuilder
-                        .matchEquals(String.class, x -> x.equals("timeout"), x -> {
-                            senderRef.tell(new Status.Failure(new TimeoutException("timeout!")), self());
-                            ifHasCache = false;
-                            ifReturn = true;
-                            context().stop(self());
-                        })
-                        .match(HttpResponse.class, httpResponse -> {
-                            if (ifReturn && !ifHasCache) {
-                                articleParseActor.tell(new ParseHtmlArticle(url, httpResponse.body), self());//请求ParsingActor解析并且返回目标是自己
-                            }
-                        })
-                        .match(String.class, body -> {//cache
-                            senderRef.tell(body, self());
-                            ifHasCache = true;
-                            ifReturn = true;
-                            context().stop(self());
-                        })
-                        .match(ArticleBody.class, articleBody -> {//经过自己再请求别的actor并二次返回给自己的消息
-                            cacheActor.tell(new SetRequest(articleBody.body, self()), self());
-                            senderRef.tell(articleBody.body, self());
-                            context().stop(self());
-                        })
-                        .matchAny(t -> {
-                            ifHasCache = false;
-                            ifReturn = true;
-                            System.err.println("ignoring msg: " + t.getClass());
-                        })
-                        .build()
-                );
+                if (ifHasCache) {
+                    System.err.println("有缓存经过");
+                    receive(ReceiveBuilder
+                            .match(String.class, body -> {//cache
+                                senderRef.tell(body, self());
+                                ifHasCache = true;
+                                context().stop(self());
+                            })
+                            .matchAny(t -> {
+                                ifHasCache = false;
+                                System.err.println("ignoring msg: " + t.getClass());
+                            })
+                            .build()
+                    );
+                }else {
+                    System.err.println("没有缓存经过");
+                    receive(ReceiveBuilder
+                            .matchEquals(String.class, x -> x.equals("timeout"), x -> {
+                                senderRef.tell(new Status.Failure(new TimeoutException("timeout!")), self());
+                                ifHasCache = false;
+                                context().stop(self());
+                            })
+                            .match(HttpResponse.class, httpResponse -> {
+                                if (!ifHasCache) {
+                                    articleParseActor.tell(new ParseHtmlArticle(url, httpResponse.body), self());//请求ParsingActor解析并且返回目标是自己
+                                }
+                            })
+                            .match(ArticleBody.class, articleBody -> {//经过自己再请求别的actor并二次返回给自己的消息 或者是别的方法调用发送的消息
+                                cacheActor.tell(new SetRequest(articleBody.body, self()), self());
+                                senderRef.tell(articleBody.body, self());
+                                context().stop(self());
+                            })
+                            .matchAny(t -> {
+                                ifHasCache = false;
+                                System.err.println("ignoring msg: " + t.getClass());
+                            })
+                            .build()
+                    );
+                }
             }
         }
         return context().actorOf(Props.create(MyActor.class, () -> new MyActor()));
-    }*/
+    }
 }
