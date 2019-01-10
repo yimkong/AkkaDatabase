@@ -13,7 +13,7 @@ import com.typesafe.config.ConfigFactory;
  */
 public class Main {
     public static void main(String[] args) {
-        ActorSystem actorSystem = ActorSystem.create("akkademo", ConfigFactory.load());
+        ActorSystem actorSystem = ActorSystem.create("akkademo", ConfigFactory.load("application"));
         Config config = actorSystem.settings().config();
         actorSystem.actorOf(Props.create(AkkademoDb.class), "akkademo-db");
     }
