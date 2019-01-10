@@ -28,13 +28,13 @@ import static scala.compat.java8.FutureConverters.toJava;
 public class AskDemoArticleParser extends AbstractActor {
     private final ActorSelection cacheActor;
     private final ActorSelection httpClienActor;
-    private final ActorSelection articleParseActor;
+    private final ActorSelection parsingActor;
     private final Timeout timeout;
 
-    public AskDemoArticleParser(String cacheActor, String httpClienActor, String articleParseActor, Timeout timeout) {
+    public AskDemoArticleParser(String cacheActor, String httpClienActor, String parsingActor, Timeout timeout) {
         this.cacheActor = context().actorSelection(cacheActor);
         this.httpClienActor = context().actorSelection(httpClienActor);
-        this.articleParseActor = context().actorSelection(articleParseActor);
+        this.parsingActor = context().actorSelection(parsingActor);
         this.timeout = timeout;
     }
 
@@ -44,8 +44,11 @@ public class AskDemoArticleParser extends AbstractActor {
         return ReceiveBuilder.match(ParseArticle.class, msg -> {
             final CompletionStage cacheResult = toJava(ask(cacheActor, new GetRequest(msg.url), timeout));//请求缓存
             final CompletionStage result = cacheResult.handle((x, t) -> {
-                return (x != null) ? CompletableFuture.completedFuture(x) : toJava(ask(httpClienActor, msg.url, timeout))//缓存里有的话就返回，没有的话请求httpClienActor得到html，然后请求articleParseActor解析html
-                        .thenCompose(rawArticle -> toJava(ask(articleParseActor, new ParseHtmlArticle(msg.url, ((HttpResponse) rawArticle).body), timeout)));
+                if (x == null) {
+                    System.err.println(t);
+                }
+                return (x != null) ? CompletableFuture.completedFuture(x) : toJava(ask(httpClienActor, msg.url, timeout))//缓存里有的话就返回，没有的话请求httpClienActor得到html，然后请求ParsingActor解析html
+                        .thenCompose(rawArticle -> toJava(ask(parsingActor, new ParseHtmlArticle(msg.url, ((HttpResponse) rawArticle).body), timeout)));
             }).thenCompose(x -> x);
             final ActorRef senderRef = sender();
             result.handle((x, t) -> {

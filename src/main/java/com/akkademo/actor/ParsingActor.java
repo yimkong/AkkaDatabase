@@ -13,7 +13,6 @@ public class ParsingActor extends AbstractActor {
         return ReceiveBuilder.
                 match(ParseHtmlArticle.class, msg -> {
                     String body = ArticleExtractor.INSTANCE.getText(msg.htmlString);
-                    System.err.println("解析html得到:" + body);
                     sender().tell(new ArticleBody(msg.uri, body), self());
                 }).build();
     }

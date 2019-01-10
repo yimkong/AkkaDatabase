@@ -30,6 +30,7 @@ public class AskTest {
 
     @Test
     public void itShouldParseArticleTest() throws Exception {
-        Common.test(askDemoActor, cacheProbe, httpClientProbe, timeout);
+        Common.testWithNoCache(askDemoActor, cacheProbe, httpClientProbe, timeout);
+//        Common.testWithCache(askDemoActor, cacheProbe, httpClientProbe, timeout);
     }
 }

@@ -29,6 +29,8 @@ public class TellTest {
 
     @Test
     public void itShouldParseArticleTest() throws Exception {
-        Common.test(tellDemoActor, cacheProbe, httpClientProbe, timeout);
+//        Common.testWithNoCache(tellDemoActor, cacheProbe, httpClientProbe, timeout);
+//        Common.testWithCache(tellDemoActor, cacheProbe, httpClientProbe, timeout);
+        Common.testWithNoCacheReturn(tellDemoActor, cacheProbe, httpClientProbe, timeout);
     }
 }
