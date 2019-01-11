@@ -1,4 +1,4 @@
-package com.akkademo.actor.cluster;
+package com.akkademo.actor.dispatcher;
 
 import akka.actor.AbstractActor;
 import akka.actor.Status;

@@ -1,6 +1,6 @@
-package clusterTest;
+package dispatcherTest;
 
-import com.akkademo.actor.cluster.ArticleParser;
+import com.akkademo.actor.dispatcher.ArticleParser;
 import org.junit.Test;
 
 import java.util.List;

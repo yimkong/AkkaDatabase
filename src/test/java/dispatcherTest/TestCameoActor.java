@@ -1,4 +1,4 @@
-package clusterTest;
+package dispatcherTest;
 
 import akka.actor.AbstractActor;
 import akka.japi.pf.ReceiveBuilder;

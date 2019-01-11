@@ -1,10 +1,10 @@
-package clusterTest;
+package dispatcherTest;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.routing.RoundRobinGroup;
-import com.akkademo.actor.cluster.ArticleParseActor;
+import com.akkademo.actor.dispatcher.ArticleParseActor;
 import com.akkademo.articleMessages.ParseArticle;
 import com.typesafe.config.ConfigFactory;
 import org.junit.Test;
