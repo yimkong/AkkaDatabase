@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
 public class BalancingPoolTest {
-    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("cluster-application"));
+    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("dispatcher-application"));
     @Test
     public void shouldReadFilesWithBalancingPool() throws Exception {
         ActorRef workerRouter = system.actorOf(new BalancingPool(8).props(Props.create(ArticleParseActor.class)),

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class AssignActorsToDispatcherTest {
-    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("cluster-application"));
+    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("dispatcher-application"));
 
     @Test
     public void shouldReadFilesWithActorsInAnotherDispatcher() throws Exception {

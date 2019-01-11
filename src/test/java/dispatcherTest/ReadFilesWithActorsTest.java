@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
 public class ReadFilesWithActorsTest {
-    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("cluster-application"));
+    ActorSystem system = ActorSystem.create("test", ConfigFactory.load("dispatcher-application"));
 
     @Test
     public void shouldReadFilesWithActors() throws Exception {
